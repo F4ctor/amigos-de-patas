@@ -1,0 +1,22 @@
+# Android Studio e Gradle
+.idea/
+.gradle/
+.kotlin/
+**/build/
+*.iml
+local.properties
+.cxx/
+.externalNativeBuild/
+captures/
+
+# Credenciais e ambiente local
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+
+# Arquivos temporários
+.DS_Store
+__pycache__/
+*.pyc
