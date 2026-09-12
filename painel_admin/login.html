@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login administrativo - ONG Adoção</title>
+  <link rel="stylesheet" href="assets/css/styles.css?v=1.0.1">
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <div class="brand">
+      <div class="brand-mark">🐾</div>
+      <div>
+        <h1>Painel da ONG</h1>
+        <p>Gerenciamento de animais e adoções</p>
+      </div>
+    </div>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" value="admin@ong.local" required autocomplete="username">
+      </div>
+      <div class="field">
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" value="Admin@123" required autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">Entrar</button>
+      <div id="message" class="message hidden"></div>
+    </form>
+
+    <p style="font-size:12px;color:#667085;margin-top:18px">
+      Altere as credenciais após o primeiro acesso.
+    </p>
+  </main>
+  <script>
+    const API_BASE = '../backend_api';
+    const form = document.getElementById('loginForm');
+    const message = document.getElementById('message');
+    if (localStorage.getItem('ong_admin_token')) location.href = 'index.html';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      message.className = 'message hidden';
+      const button = form.querySelector('button');
+      button.disabled = true;
+      button.textContent = 'Entrando...';
+      try {
+        const response = await fetch(`${API_BASE}/auth/login`, {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({
+            email: document.getElementById('email').value.trim(),
+            senha: document.getElementById('senha').value
+          })
+        });
+        const json = await response.json();
+        if (!response.ok || !json.success) throw new Error(json.message || 'Falha no login.');
+        if (json.data.usuario.tipo !== 'administrador') throw new Error('Esta conta não possui acesso administrativo.');
+        localStorage.setItem('ong_admin_token', json.data.token);
+        localStorage.setItem('ong_admin_user', JSON.stringify(json.data.usuario));
+        location.href = 'index.html';
+      } catch (error) {
+        message.textContent = error.message;
+        message.className = 'message error';
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Entrar';
+      }
+    });
+  </script>
+</body>
+</html>

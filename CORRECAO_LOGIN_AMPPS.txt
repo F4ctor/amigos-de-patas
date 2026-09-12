@@ -1,0 +1,31 @@
+CORREÇÃO DO LOGIN ADMINISTRATIVO - AMPPS
+Versão: 1.0.1
+
+Problema corrigido:
+O login era aceito e o token era criado, porém algumas configurações do Apache/PHP
+no AMPPS removiam o cabeçalho Authorization antes de ele chegar à API. Ao abrir o
+painel, a rota /admin/dashboard recebia uma resposta 401 e o navegador voltava
+imediatamente para login.html.
+
+Correções aplicadas diretamente no sistema:
+1. A API agora reconhece Authorization em HTTP_AUTHORIZATION,
+   REDIRECT_HTTP_AUTHORIZATION, getallheaders() e apache_request_headers().
+2. Foi adicionado X-Auth-Token como fallback compatível com AMPPS.
+3. O .htaccess passou a preservar o cabeçalho Authorization.
+4. O painel envia os dois cabeçalhos de autenticação.
+5. Foi acrescentada versão nos arquivos CSS/JS para impedir cache antigo.
+
+Como atualizar uma instalação já existente:
+- Pare Apache no AMPPS e PostgreSQL no serviço separado.
+- Substitua a pasta ong_adocao existente pela pasta corrigida deste pacote.
+- Inicie Apache no AMPPS e o serviço PostgreSQL novamente.
+- Abra o painel e pressione Ctrl+F5 uma vez.
+
+Painel:
+http://localhost/ong_adocao/painel_admin/login.html
+
+Credenciais iniciais:
+admin@ong.local
+Admin@123
+
+Não é necessário importar o banco novamente se ele já foi importado.

@@ -1,0 +1,4 @@
+.env
+.git
+flutter_app
+backend_api/config/config.local.php

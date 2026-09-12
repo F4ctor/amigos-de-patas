@@ -1,22 +1,17 @@
-# Android Studio e Gradle
-.idea/
-.gradle/
-.kotlin/
-**/build/
-*.iml
-local.properties
-.cxx/
-.externalNativeBuild/
-captures/
-
-# Credenciais e ambiente local
 .env
 .env.*
 !.env.example
+**/config.local.php
+**/local.properties
+**/.dart_tool/
+**/.flutter-plugins*
+**/.gradle/
+**/.idea/
+**/build/
 *.jks
 *.keystore
-
-# Arquivos temporários
-.DS_Store
 __pycache__/
 *.pyc
+backend_api/uploads/*
+!backend_api/uploads/.gitkeep
+!backend_api/uploads/demo_*.png

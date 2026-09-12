@@ -1,0 +1,18 @@
+VALIDAÇÃO — ONG ADOÇÃO 1.3.0 / POSTGRESQL
+
+Verificações executadas nesta conversão:
+- Sintaxe dos 7 arquivos PHP: analisada com tree-sitter-php, sem erros.
+- Sintaxe do esquema PostgreSQL e dados de demonstração: analisada com pglast.
+- 50 literais SQL completos da API: analisados com parser PostgreSQL.
+- Arquivos YAML e XML: analisados sem erros.
+- Script de integração Python: sintaxe analisada.
+- Interface: arquivos Dart (exceto endereço da API), HTML, CSS e JavaScript preservados em relação ao ZIP original.
+- ZIP: integridade conferida após a compactação.
+
+Limitações:
+- PHP/PostgreSQL e Flutter não estão instalados no ambiente de edição.
+- O teste HTTP de integração foi fornecido, mas não executado.
+- Não houve compilação de APK nem execução visual da interface.
+- A conta e o hash de demonstração foram preservados do anexo, sem nova verificação de login em execução.
+
+Execute testes/test_api.py em banco de demonstração e siga README_PRIMEIROS_PASSOS.md.

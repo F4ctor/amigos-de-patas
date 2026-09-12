@@ -2,29 +2,34 @@ services:
   db:
     image: postgres:16
     environment:
-      POSTGRES_DB: amigosdepatas
-      POSTGRES_USER: amigosdepatas
-      POSTGRES_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD no arquivo .env}
+      POSTGRES_DB: ong_adocao
+      POSTGRES_USER: ong_adocao
+      POSTGRES_PASSWORD: ${DB_PASS:?Preencha DB_PASS no .env}
+      TZ: America/Sao_Paulo
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./amigosdepatas_server/database/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+      - ./database/ong_adocao.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+      - ./database/dados_demonstracao.sql:/docker-entrypoint-initdb.d/002-demo.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U amigosdepatas -d amigosdepatas"]
+      test: ["CMD-SHELL", "pg_isready -U ong_adocao -d ong_adocao"]
       interval: 5s
       timeout: 5s
       retries: 15
   api:
-    build: ./amigosdepatas_server
+    build: .
     ports:
       - "8080:80"
     environment:
       DB_HOST: db
       DB_PORT: 5432
-      DB_NAME: amigosdepatas
-      DB_USER: amigosdepatas
-      DB_PASSWORD: ${DB_PASSWORD:?Defina DB_PASSWORD no arquivo .env}
+      DB_NAME: ong_adocao
+      DB_USER: ong_adocao
+      DB_PASS: ${DB_PASS:?Preencha DB_PASS no .env}
+    volumes:
+      - uploads:/var/www/html/ong_adocao/backend_api/uploads
     depends_on:
       db:
         condition: service_healthy
 volumes:
   postgres_data:
+  uploads:

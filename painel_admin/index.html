@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel administrativo - ONG Adoção</title>
+  <link rel="stylesheet" href="assets/css/styles.css?v=1.0.1">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">🐾</div>
+        <div><h1>ONG Adoção</h1><p>Painel administrativo</p></div>
+      </div>
+      <nav class="nav" id="nav">
+        <button data-view="dashboard" class="active">📊 Visão geral</button>
+        <button data-view="animais">🐶 Animais</button>
+        <button data-view="adocoes">🏠 Solicitações</button>
+        <button data-view="campanhas">💚 Campanhas</button>
+        <button data-view="noticias">📰 Notícias</button>
+        <button data-view="videos">🎬 Vídeos</button>
+        <button data-view="usuarios">👥 Usuários</button>
+        <button data-view="configuracoes">⚙️ Configurações</button>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="logoutBtn" class="btn btn-secondary btn-block">Sair</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div style="display:flex;align-items:center;gap:10px">
+          <button class="btn btn-secondary mobile-menu" id="menuBtn">☰</button>
+          <h2 id="pageTitle">Visão geral</h2>
+        </div>
+        <div class="topbar-actions">
+          <span id="adminName"></span>
+          <button class="btn btn-secondary" id="changePasswordBtn">Minha senha</button>
+        </div>
+      </header>
+      <section class="content" id="content"><div class="loading">Carregando...</div></section>
+    </main>
+  </div>
+
+  <div id="modalRoot"></div>
+  <script src="assets/js/app.js?v=1.0.1"></script>
+</body>
+</html>
